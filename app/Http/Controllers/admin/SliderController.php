@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Slider;
 class SliderController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        return view('admin.sliders.sliders_view');
+        $sliders=Slider::all();
+        return view('admin.sliders.sliders_view')->with('sliders',$sliders);
     }
 
     /**
@@ -35,7 +36,25 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+    
+        
+        $data=$request->validate([
+            'name'=>'required',
+            'status'=>'required',
+            'image'=>'required|image',
+        ]);
+
+        $image=$request->file('image');
+        // return $image;
+        $imageName =strtolower($request->name).'_'.time().'.'.$image->extension();
+        $image->move(public_path('uploads/admin/sliders'), $imageName);
+        $data['image']=$imageName;
+        // return $request->all();
+        //  dd($data);       
+        Slider::create($data);
+        return redirect()->route('sliders')->with('success','Slider created successfully');
+
     }
 
     /**
@@ -57,7 +76,8 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+       $slider=Slider::find($id);
+        return view('admin.sliders.sliders_edit')->with('slider',$slider);
     }
 
     /**

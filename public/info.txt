@@ -1,0 +1,3 @@
+Admin Login Details
+User- admin@gmail.com
+Password- admin123
