@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{asset('admin_assets/css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{asset('admin_assets/images/favicon.png') }}" />
+
   </head>
   <body>
     <div class="container-scroller">
@@ -124,7 +125,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="{{ route('teachers.index') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>

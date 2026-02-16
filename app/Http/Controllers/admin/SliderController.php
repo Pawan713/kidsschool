@@ -14,7 +14,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders=Slider::all();
+        $sliders=Slider::orderBy('created_at', 'desc')->get();
         return view('admin.sliders.sliders_view')->with('sliders',$sliders);
     }
 
@@ -89,7 +89,31 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $slider=Slider::find($id);
+         $data=$request->validate([
+            'name'=>'required',
+            'status'=>'required',
+            // 'image'=>'required|image',
+        ]);
+        
+
+        $image=$request->file('image');
+          if(!$image) {
+                 $data['image']=$slider->image;
+          } else {
+            if(file_exists(public_path('uploads/admin/sliders/'.$slider->image))){
+                unlink(public_path('uploads/admin/sliders/'.$slider->image));
+            }
+              $imageName =strtolower($request->name).'_'.time().'.'.$image->extension();
+                $image->move(public_path('uploads/admin/sliders'), $imageName);
+                $data['image']=$imageName;
+          }
+        // return $image;
+     
+        $slider->update($data);
+        return redirect()->route('sliders')->with('success','Slider updated successfully');
+
+
     }
 
     /**
@@ -100,6 +124,11 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $slider=Slider::find($id);
+            if(file_exists(public_path('uploads/admin/sliders/'.$slider->image))){
+                    unlink(public_path('uploads/admin/sliders/'.$slider->image));
+                }
+                $slider->delete();
+                return redirect()->route('sliders')->with('success','Slider deleted successfully');
     }
 }

@@ -41,7 +41,7 @@
                             <td> {{($slider->status==1)?'Active':'Inactive'}} </td>
                             <td class="py-1">
                                 <a href="{{ route('sliders.edit',$slider->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                <a href="{{ route('sliders.destroy',$slider->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ route('sliders.destroy',$slider->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
                                   {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                               <button type="button" class="btn btn-danger btn-sm">Delete</button> --}}
                              </td>

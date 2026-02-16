@@ -32,5 +32,39 @@
     <!-- Custom js for this page -->
     <script src="{{asset('admin_assets/js/dashboard.js')}}"></script>
     <!-- End custom js for this page -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <script>
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            // Modal Styling
+            confirmButtonColor: '#10B981', // Success Green
+            background: 'rgb(106 119 120)', // Light Gray Background
+            color: '#111827',      
+            borderRadius: '15px'
+        });
+    @endif
+
+    // Error Alert
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "{{ session('error') }}",
+            // Modal Styling
+            confirmButtonColor: '#EF4444', // Error Red
+            background: 'rgb(106 119 120)', // Light Gray Background
+            color: '#111827',      
+            borderRadius: '15px'
+        });
+    @endif
+    // Success Alert
+   
+</script>
   </body>
 </html>

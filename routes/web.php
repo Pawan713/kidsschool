@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\TeacherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +16,9 @@ use App\Http\Controllers\admin\AdminController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.admin_dashboard');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 
@@ -36,9 +37,12 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
       Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
     Route::get('/sliders/create', [SliderController::class, 'create'])->name('sliders.create');
     Route::post('/sliders/store', [SliderController::class, 'store'])->name('sliders.store');
-    Route::get('/sliders/{id}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
-    Route::put('/sliders/{id}', [SliderController::class, 'update'])->name('sliders.update');
-    Route::get('/sliders/{id}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+    Route::get('/sliders/edit/{id}', [SliderController::class, 'edit'])->name('sliders.edit');
+    Route::put('/sliders/update/{id}', [SliderController::class, 'update'])->name('sliders.update');
+    Route::get('/sliders/delete/{id}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+
+    Route::resource('/teachers', TeacherController::class);
+
 });
 
 
